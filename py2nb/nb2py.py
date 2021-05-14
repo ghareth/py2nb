@@ -1,4 +1,5 @@
 import nbformat
+import argparse
 
 
 def nb2py(nbfile, pyfile):
@@ -19,3 +20,26 @@ def nb2py(nbfile, pyfile):
                 pyf.write('"""\n')
                 pyf.write(cell.source)
                 pyf.write('\n"""\n\n')
+
+def call():
+    parser = argparse.ArgumentParser(
+    description='Convert from Jupyter Notebook to python')
+    parser.add_argument('notebook_file',
+                        help='name of the jupyter notebook input file')
+    parser.add_argument('python_file', nargs='?',
+                        help='name of python output file')
+    args = parser.parse_args()
+
+    # ------------
+    # File names
+    # ------------
+
+    nbfile = args.notebook_file
+    pyfile = args.python_file
+    if pyfile is None:
+        pyfile = nbfile.replace('.ipynb', '.py')
+
+    nb2py(nbfile, pyfile)
+
+if __name__ == "__main__":
+    call()

@@ -1,4 +1,5 @@
 import re
+import argparse
 
 import nbformat as nbf
 from nbformat.v4.nbbase import (
@@ -68,3 +69,26 @@ def extract_cells(fp):
     # Any remaining lines at end of file
     if lines:
         yield(lines)
+
+def call():
+    parser = argparse.ArgumentParser(
+        description='python to Jupyter Notebook converter')
+    parser.add_argument('python_file',
+                        help='name of the python input file')
+    parser.add_argument('notebook_file', nargs='?',
+                        help='name of jupyter notebook output file')
+    args = parser.parse_args()
+
+    # ------------
+    # File names
+    # ------------
+
+    pyfile = args.python_file
+    nbfile = args.notebook_file
+    if nbfile is None:
+        nbfile = pyfile.replace('.py', '.ipynb')
+
+    py2nb(pyfile, nbfile)
+
+if __name__ == "__main__":
+    call()
