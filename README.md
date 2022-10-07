@@ -4,7 +4,7 @@ This python package provides a single module:
 
 * `py2nb` – Convert a python script to a jupyter notebook
 
-To install this package type:
+To install this package, clone `ghareth/py2nb` and type:
 ```
 cd \path\to\py2nb\setup.py
 pip install .
